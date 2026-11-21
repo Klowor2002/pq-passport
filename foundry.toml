@@ -1,0 +1,14 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+solc_version = "0.8.24"
+evm_version = "shanghai"
+
+# QoreChain Diana testnet (EVM chain ID 9800).
+# NOTE: broadcasting from this config alone will be REFUSED by the chain
+# unless the sender account has (1) a registered ML-DSA-87 key and
+# (2) an open EVM authorisation window. Use scripts/ (the SDK flow) to
+# open the window first — see README "Deploying".
+[rpc_endpoints]
+diana = "https://evm-testnet.qore.host"
