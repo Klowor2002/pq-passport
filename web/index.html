@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PQ Passport — Are you ready for Q-Day?</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 2rem auto; max-width: 44rem; padding: 0 1rem; }
+  .card { border: 1px solid #ddd; border-radius: 12px; padding: 1rem 1.25rem; margin: 1rem 0; }
+  .ready { border-color: #1a7f37; } .notready { border-color: #b42318; }
+  code { background: #f4f4f4; padding: 0 .3em; border-radius: 4px; }
+  button { padding: .5rem 1rem; border-radius: 8px; cursor: pointer; }
+  input { width: 100%; padding: .5rem; box-sizing: border-box; }
+</style>
+</head>
+<body>
+<h1>PQ Passport</h1>
+<p>Prove you're ready for Q-Day. Enter a QoreChain account — either encoding,
+<code>qor1…</code> or <code>0x…</code> — to see its live post-quantum protection
+status, its assessor score, and whether it holds a soulbound PQ Passport badge.</p>
+
+<div class="card">
+  <label for="addr">Account</label>
+  <input id="addr" placeholder="qor1… or 0x…">
+  <p><button id="check">Check readiness</button>
+     <button id="connect">Connect QoreX / MetaMask</button>
+     <button id="claim" disabled>Claim my badge</button></p>
+  <div id="out">No check yet.</div>
+</div>
+
+<p class="card">Scoring rubric v1: ML-DSA-87 key registered <b>50</b> (mandatory) ·
+EVM authorisation window healthy <b>20</b> · hybrid-signed activity <b>20</b> ·
+key age ≥ 7 days <b>10</b>. “Q-Day Ready” = score ≥ 70 with a registered key.</p>
+
+<script type="module">
+// Zero-build app: viem via CDN, reads Diana (EVM chain ID 9800) directly.
+// CONTRACT is filled in after deployment (see README "On-chain").
+import { createPublicClient, http } from "https://cdn.jsdelivr.net/npm/viem@2/dist/esm/index.js";
+const CONTRACT = "TBD_AFTER_DEPLOY";
+const RPC = "https://evm-testnet.qore.host";
+const client = createPublicClient({ transport: http(RPC) });
+const out = document.getElementById("out");
+document.getElementById("check").addEventListener("click", async () => {
+  const a = document.getElementById("addr").value.trim();
+  out.textContent = "Reading chain state… (registry wiring lands with the deploy step)";
+  // Phase 2: convert qor1<->0x via @qorechain/evm helpers, read
+  // PQAttestation.attestationOf / isReady / hasBadge, and merge with the
+  // assessor's REST reads (key registered? window open?).
+  console.log("check", a, "contract", CONTRACT, "client ready", !!client);
+});
+</script>
+</body>
+</html>
