@@ -87,7 +87,7 @@ node deploy.mjs   # full deploy + lifecycle, prints every tx hash
 
 ## Demo
 
-Video (≤3 min): `TBD`
+Video (≤3 min, 116 s): [https://raw.githubusercontent.com/Klowor2002/pq-passport/main/demo/pq-passport-demo.mp4](https://raw.githubusercontent.com/Klowor2002/pq-passport/main/demo/pq-passport-demo.mp4)
 
 ## License
 
